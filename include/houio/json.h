@@ -58,6 +58,7 @@ namespace houio
 			virtual void  uaInt16( sint64 numElements, Parser *parser ) = 0;
 			virtual void  uaInt32( sint64 numElements, Parser *parser ) = 0;
 			virtual void  uaInt64( sint64 numElements, Parser *parser ) = 0;
+			virtual void   uaInt8( sint64 numElements, Parser *parser ) = 0;
 			virtual void  uaUInt8( sint64 numElements, Parser *parser ) = 0;
 			virtual void uaString( sint64 numElements, Parser *parser ) = 0;
 		};
@@ -525,6 +526,18 @@ namespace houio
 				ua<sint64>( numElements, parser, "<sint64>" );
 			}
 
+			virtual void uaInt8(sint64 numElements, Parser *parser)
+			{
+				indent();
+				std::vector<sbyte> data(numElements);
+				if (numElements != 0)
+					parser->read<sbyte>(&data[0], numElements);
+				out << "jsonArray<int8> ["; std::flush(out);
+				for (std::vector<sbyte>::iterator it = data.begin(); it != data.end(); ++it)
+					out << (int)(*it) << " "; std::flush(out);
+				out << "]\n"; std::flush(out);
+			}
+
 			virtual void uaUInt8( sint64 numElements, Parser *parser )
 			{
 				indent();
@@ -888,6 +901,7 @@ namespace houio
 			virtual void     uaInt16( sint64 numElements, Parser *parser );
 			virtual void     uaInt32( sint64 numElements, Parser *parser );
 			virtual void     uaInt64( sint64 numElements, Parser *parser );
+			virtual void      uaInt8( sint64 numElements, Parser *parser);
 			virtual void     uaUInt8( sint64 numElements, Parser *parser );
 			virtual void    uaString( sint64 numElements, Parser *parser );
 

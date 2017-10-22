@@ -66,6 +66,7 @@ namespace houio
 				case Token::JID_REAL32:p->handler->uaReal32( numElements, p );break;
 				case Token::JID_REAL64:p->handler->uaReal64( numElements, p );break;
 				case Token::JID_UINT8:p->handler->uaUInt8( numElements, p );break;
+				case Token::JID_INT8:p->handler->uaInt8(numElements, p); break;
 				case Token::JID_STRING:p->handler->uaString( numElements, p );break;
 				case Token::JID_NULL:
 				case Token::JID_MAP_BEGIN:
@@ -81,7 +82,6 @@ namespace houio
 				case Token::JID_KEY_SEPARATOR:
 				case Token::JID_VALUE_SEPARATOR:
 				case Token::JID_MAGIC:
-				case Token::JID_INT8:
 				case Token::JID_REAL16:
 				case Token::JID_UINT16:
 				default:
@@ -1295,6 +1295,11 @@ namespace houio
 		void JSONReader::uaInt64( sint64 numElements, Parser *parser )
 		{
 			jsonUA<sint64, sint64>(numElements, parser);
+		}
+
+		void JSONReader::uaInt8(sint64 numElements, Parser *parser)
+		{
+			jsonUA<ubyte, ubyte>(numElements, parser);
 		}
 
 		void JSONReader::uaUInt8( sint64 numElements, Parser *parser )
